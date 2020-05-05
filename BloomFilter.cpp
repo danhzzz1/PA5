@@ -6,6 +6,11 @@
  */
 void BloomFilter::insert(const string & s) {
     /* YOUR CODE HERE */
+    for(auto const & iter : hash_functions){
+        bits[iter(s) % M] = true;
+        //int index = iter(s) % M;
+        //bits[index] = true 
+    }
 }
 
 /**
@@ -13,4 +18,11 @@ void BloomFilter::insert(const string & s) {
  */
 bool BloomFilter::find(const string & s) {
     /* YOUR CODE HERE */
+    for(auto const& iter : hash_functions){
+        if(bits[iter(s) % M] == false){
+            return false;
+        }
+
+    }
+    return true;   
 }

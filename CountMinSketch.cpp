@@ -7,6 +7,11 @@
  */
 void CountMinSketch::increment(const string & s) {
     /* YOUR CODE HERE */
+    for(auto const & iter : hash_functions){
+        //count[hash_functions][iter(s) % M];
+        int index = iter(s) % M;
+        count[hash_functions][index] += 1;
+    }
 }
 
 /**
