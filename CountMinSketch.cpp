@@ -7,10 +7,13 @@
  */
 void CountMinSketch::increment(const string & s) {
     /* YOUR CODE HERE */
+    unsigned int counter = 0;
     for(auto const & iter : hash_functions){
         //count[hash_functions][iter(s) % M];
-        int index = iter(s) % M;
-        count[hash_functions][index] += 1;
+        if(counter < K){
+            count[counter][iter(s)%M] += 1;
+            counter++;
+        }
     }
 }
 
@@ -19,4 +22,20 @@ void CountMinSketch::increment(const string & s) {
  */
 unsigned int CountMinSketch::find(const string & s) {
     /* YOUR CODE HERE */
+    unsigned int est = -1;
+    unsigned int curr = 0;
+    unsigned int counter = 0;
+    for(auto const & iter : hash_functions){
+        unsigned int index  = iter(s) % M;
+        if(counter < K){
+            curr = count[counter][index];
+            counter++;
+            if(curr < est){
+            est = curr;
+            }
+        }
+        
+        
+    }
+    return est;
 }
